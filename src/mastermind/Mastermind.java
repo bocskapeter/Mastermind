@@ -30,11 +30,11 @@ public final class Mastermind {
     /**
      *
      */
-    private static final byte COLORS = 8;
+    private static final byte COLORS = 5;
     /**
      *
      */
-    private static final byte PLACES = 4;
+    private static final byte PLACES = 3;
     /**
      *
      */

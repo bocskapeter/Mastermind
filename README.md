@@ -10,3 +10,4 @@ ver. 1.0
 
 Performance:
 Table (8/4) : ~6-7 iteration steps (6.8269 mean of 10000 games)
+Table (5/3) : +3-4 iteration steps (3.622 mean of 10000 games)
