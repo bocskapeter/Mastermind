@@ -48,11 +48,18 @@ public class Solver {
 
     /**
      *
+     */
+    private final Random random;
+
+    /**
+     *
      * @param newTable new table
      */
     public Solver(final Table newTable) {
         this.table = newTable;
         this.solutionSpace = new ArrayList<>();
+        this.random = new Random();
+        this.steps = 0;
 
         int n = this.table.getColors();
         int k = this.table.getPlaces();
@@ -86,8 +93,7 @@ public class Solver {
      *
      */
     public final void solve() {
-        int[] aTry = solutionSpace.get((new Random())
-                .nextInt(solutionSpace.size()));
+        int[] aTry = solutionSpace.get(random.nextInt(solutionSpace.size()));
 
         int[] anAnswer = this.table.guess(aTry);
         steps = 1;
@@ -102,20 +108,28 @@ public class Solver {
         ArrayList<int[]> answers = new ArrayList<>();
         answers.add(anAnswer);
 
+        ArrayList<int[]> trys = new ArrayList<>();
+        trys.add(aTry);
+
         ArrayList<int[]> temp = new ArrayList<>();
 
+        boolean good;
         while (!possibleSolutions.isEmpty()) {
             for (int[] i : possibleSolutions) {
-                for (int[] an : answers) {
-                    if (simulation(aTry, i, an)) {
-                        temp.add(i);
+                good = true;
+                for (int j = 0; j < trys.size(); j++) {
+                    if (!simulation(trys.get(j), i, answers.get(j))) {
+                        good = false;
                     }
+                }
+                if (good) {
+                    temp.add(i);
                 }
             }
             possibleSolutions = new ArrayList<>();
             possibleSolutions.addAll(temp);
             temp = new ArrayList<>();
-            aTry = possibleSolutions.get((new Random())
+            aTry = possibleSolutions.get(random
                     .nextInt(possibleSolutions.size()));
             anAnswer = this.table.guess(aTry);
             steps++;
@@ -124,6 +138,7 @@ public class Solver {
                 return;
             }
             answers.add(anAnswer);
+            trys.add(aTry);
         }
     }
 

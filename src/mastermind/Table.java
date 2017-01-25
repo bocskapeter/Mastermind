@@ -52,6 +52,11 @@ public class Table {
 
     /**
      *
+     */
+    private final Random random;
+
+    /**
+     *
      * @return colors
      */
     public final int getColors() {
@@ -83,6 +88,7 @@ public class Table {
             final int newPlaces) {
         this.colors = newColors;
         this.places = newPlaces;
+        random = new Random();
     }
 
     /**
@@ -96,7 +102,7 @@ public class Table {
             pins.add(i);
         }
         for (int i = 0; i < places; i++) {
-            solution[i] = pins.remove((new Random()).nextInt(pins.size()));
+            solution[i] = pins.remove(random.nextInt(pins.size()));
         }
     }
 
